@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Color Palette */
   --color-primary: #FFD1DC; /* Blush Pink */
@@ -58,6 +62,7 @@ a {
 }
 
 /* Background Sparkles (Global) */
+/* Background Sparkles (Global) */
 .sparkle-bg {
   position: fixed;
   top: 0;
@@ -66,5 +71,55 @@ a {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 209, 220, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 209, 220, 0.4) 0%, rgba(255, 240, 245, 0.1) 70%);
+  animation: bg-pulse 10s ease-in-out infinite;
+}
+
+@keyframes bg-pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+/* God Rays */
+.god-rays {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    rgba(255, 215, 0, 0.1) 0deg,
+    transparent 20deg,
+    rgba(255, 215, 0, 0.1) 40deg,
+    transparent 60deg,
+    rgba(255, 215, 0, 0.1) 80deg,
+    transparent 100deg,
+    rgba(255, 215, 0, 0.1) 120deg,
+    transparent 140deg,
+    rgba(255, 215, 0, 0.1) 160deg,
+    transparent 180deg
+  );
+  animation: rotate-slow 60s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Heartbeat - Organic */
+@keyframes heart-beat-organic {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.15); } /* Lub */
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); } /* Dub */
+  60% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.animate-heart-organic {
+  animation: heart-beat-organic 2s ease-in-out infinite;
 }

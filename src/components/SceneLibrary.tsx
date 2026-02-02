@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import { Clock, Book, Stars } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 interface SceneLibraryProps {
     onComplete: () => void;
@@ -12,7 +12,6 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
     const [isFrozen, setIsFrozen] = useState(false);
     const controls = useAnimation();
 
-    // Start spinning immediately
     useEffect(() => {
         controls.start({
             rotate: 360,
@@ -32,68 +31,95 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full h-[60vh] flex flex-col items-center justify-center relative bg-[#FDF5E6] rounded-xl shadow-2xl overflow-hidden border-4 border-amber-900/10"
+            className={`w-full h-[60vh] flex flex-col items-center justify-center relative rounded-2xl shadow-xl overflow-hidden transition-colors duration-1000 ${isFrozen ? 'bg-zinc-900 border-zinc-800' : 'bg-[#F5F1E6] border-[#E8E1D1]'}`}
         >
-            {/* Background Elements */}
-            <div className="absolute inset-0 opacity-10 flex flex-wrap gap-8 justify-center items-center content-center pointer-events-none">
-                {Array.from({ length: 12 }).map((_, i) => (
-                    <Book key={i} className="w-16 h-16 text-amber-900" />
-                ))}
-            </div>
+            {/* Background Texture */}
+            <div className={`absolute inset-0 opacity-10 transition-opacity duration-1000 ${isFrozen ? 'opacity-5' : 'opacity-10'}`}
+                style={{ backgroundImage: 'radial-gradient(#A18E6E 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+            />
 
-            {/* Instruction */}
             {!isFrozen && (
-                <div className="absolute top-8 z-20 bg-white/80 px-4 py-2 rounded-full shadow-sm">
-                    <p className="text-secondary font-heading animate-pulse">Tap the clock to freeze time! ⏳</p>
-                </div>
+                <motion.div
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="absolute top-10 z-20"
+                >
+                    <p className="text-amber-900/60 font-heading text-lg tracking-widest uppercase">Time is racing...</p>
+                </motion.div>
             )}
 
             {/* The Clock */}
-            <div className="relative z-10 p-10 cursor-pointer" onClick={handleFreeze}>
+            <div className="relative z-10 cursor-pointer group" onClick={handleFreeze}>
                 <motion.div
                     animate={controls}
-                    className="w-40 h-40 rounded-full border-8 border-amber-800 bg-white flex items-center justify-center shadow-xl relative"
+                    className={`w-48 h-48 rounded-full border-4 ${isFrozen ? 'border-white/20 bg-zinc-800' : 'border-amber-900/10 bg-white'} shadow-2xl flex items-center justify-center relative transition-colors duration-700`}
                 >
-                    {/* Clock Face Details */}
-                    <div className="w-2 h-2 bg-black rounded-full absolute z-20" />
-                    <div className="w-1 h-14 bg-black absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom" />
-                    <div className="w-1 h-10 bg-red-800 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom rotate-45" />
+                    {/* Clock Face */}
+                    <div className={`absolute inset-2 rounded-full border border-dashed ${isFrozen ? 'border-white/10' : 'border-amber-900/20'}`} />
 
-                    {/* Marryjoy Reference? Optional, keeping it subtle */}
+                    <div className="w-3 h-3 bg-secondary rounded-full absolute z-20 shadow-md" />
+                    <div className={`w-1 h-16 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom ${isFrozen ? 'bg-white/50' : 'bg-amber-900'} transition-colors duration-500`} />
+                    <div className="w-0.5 h-20 bg-red-400 absolute bottom-1/2 left-1/2 -translate-x-1/2 origin-bottom -rotate-12" />
                 </motion.div>
+
+                {!isFrozen && (
+                    <div className="absolute -bottom-10 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity text-sm text-amber-900/50">
+                        Tap only when you want it to stop
+                    </div>
+                )}
             </div>
 
-            {/* Success State */}
+            {/* Success State - Dramatic Time Freeze */}
             {isFrozen && (
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="absolute inset-0 bg-white/90 backdrop-blur-sm z-30 flex flex-col items-center justify-center p-6 text-center space-y-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 bg-black/40 z-30 flex flex-col items-center justify-center p-8 text-center"
                 >
                     <motion.div
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 3, repeat: Infinity }}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1 }}
+                        className="space-y-6 max-w-md"
                     >
-                        <Stars className="w-12 h-12 text-accent" />
+                        <Clock className="w-10 h-10 text-white/80 mx-auto mb-4" />
+
+                        <div className="font-heading text-white space-y-4">
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
+                                className="text-2xl font-light"
+                            >
+                                Six hours.
+                            </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5 }}
+                                className="text-2xl font-light"
+                            >
+                                No standing.
+                            </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.5 }}
+                                className="text-2xl font-light"
+                            >
+                                Just us.
+                            </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5 }}
+                                className="text-3xl text-rose-200 font-romantic"
+                            >
+                                Like the world stopped existing.
+                            </motion.p>
+                        </div>
                     </motion.div>
-
-                    <h2 className="text-3xl font-heading text-secondary font-bold">Time Stopped.</h2>
-
-                    <div className="space-y-2 text-gray-700 italic text-lg leading-relaxed max-w-xs">
-                        <p>"Six hours."</p>
-                        <p>"No standing."</p>
-                        <p>"Just us..."</p>
-                        <p className="font-semibold text-secondary">"like the world stopped existing."</p>
-                    </div>
 
                     <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 2 }}
+                        transition={{ delay: 5 }}
                         onClick={onComplete}
-                        className="px-8 py-3 bg-secondary text-white rounded-full hover:bg-opacity-90 shadow-lg mt-6 font-heading"
+                        className="mt-12 px-6 py-2 border border-white/30 text-white/80 rounded-full hover:bg-white/10 transition-colors text-sm uppercase tracking-widest"
                     >
-                        Continue
+                        Resume Time
                     </motion.button>
                 </motion.div>
             )}

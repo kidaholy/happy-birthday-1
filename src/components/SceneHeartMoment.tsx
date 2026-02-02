@@ -11,8 +11,7 @@ interface SceneHeartMomentProps {
 export default function SceneHeartMoment({ onComplete }: SceneHeartMomentProps) {
     const [isCaptured, setIsCaptured] = useState(false);
 
-    const handleDragEnd = (event: any, info: any) => {
-        // Simple threshold check: if dragged far enough to the right (e.g., > 150px)
+    const handleDragEnd = (_: any, info: any) => {
         if (info.offset.x > 100) {
             setIsCaptured(true);
         }
@@ -23,84 +22,98 @@ export default function SceneHeartMoment({ onComplete }: SceneHeartMomentProps) 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full h-[60vh] flex flex-col items-center justify-center relative bg-gradient-to-br from-rose-100 to-rose-200 rounded-xl shadow-inner overflow-hidden p-8"
+            className="w-full h-[60vh] flex flex-col items-center justify-center relative bg-gradient-to-br from-rose-50 to-pink-100 rounded-2xl shadow-inner overflow-hidden p-8"
         >
             {!isCaptured ? (
                 <>
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="absolute top-10 text-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5, duration: 1.5 }}
+                        className="absolute top-12 text-center"
                     >
-                        <p className="font-heading text-xl text-secondary">"Something changed..."</p>
-                        <p className="text-sm text-gray-500 mt-2">Guide the arrow to the heart</p>
+                        <p className="font-heading text-2xl text-secondary/70 italic">"Something changed..."</p>
                     </motion.div>
 
-                    {/* Target Heart */}
-                    <div className="absolute right-10 md:right-20 flex flex-col items-center">
+                    {/* Target Heart - With Pulse Aura */}
+                    <div className="absolute right-10 md:right-24 flex flex-col items-center justify-center">
+                        <div className="absolute w-32 h-32 bg-rose-300/20 rounded-full animate-pulse-soft blur-xl" />
                         <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 0.8, repeat: Infinity }}
+                            animate={{ scale: [1, 1.1, 1] }}
+                            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
                         >
-                            <Heart className="w-16 h-16 text-secondary fill-secondary drop-shadow-xl" />
+                            <Heart className="w-20 h-20 text-secondary fill-secondary drop-shadow-2xl" strokeWidth={0} />
                         </motion.div>
                     </div>
 
-                    {/* Draggable Arrow */}
-                    <div className="absolute left-10 md:left-20 flex items-center">
-                        <div className="relative">
-                            {/* Track/Guide visual */}
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[200px] md:w-[300px] h-1 bg-white/40 rounded-full" />
+                    {/* Draggable Arrow - Smoother Visuals */}
+                    <div className="absolute left-10 md:left-24 flex items-center">
+                        <div className="relative group">
+                            {/* Guide Path */}
+                            <div className="absolute left-6 top-1/2 -translate-y-1/2 w-[180px] md:w-[250px] h-[2px] bg-gradient-to-r from-secondary/50 to-transparent" />
 
                             <motion.div
                                 drag="x"
                                 dragConstraints={{ left: 0, right: 250 }}
-                                dragElastic={0.2}
+                                dragElastic={0.1}
                                 onDragEnd={handleDragEnd}
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="relative z-10 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center cursor-hand"
+                                className="relative z-10 w-14 h-14 bg-white rounded-full shadow-lg border border-rose-100 flex items-center justify-center cursor-grab active:cursor-grabbing hover:shadow-xl transition-shadow"
                             >
-                                <ArrowRight className="text-secondary" />
+                                <ArrowRight className="text-secondary w-6 h-6" />
                             </motion.div>
+
+                            <p className="absolute -bottom-8 left-0 w-max text-xs text-secondary/40 font-body opacity-0 group-hover:opacity-100 transition-opacity">
+                                Bring it to her heart
+                            </p>
                         </div>
                     </div>
                 </>
             ) : (
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center text-center space-y-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex flex-col items-center text-center space-y-8 z-20"
                 >
                     <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: [0, 1.2, 1] }}
-                        transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: "spring", stiffness: 100, damping: 12 }}
+                        className="relative"
                     >
-                        <div className="flex items-center justify-center gap-4">
-                            <Heart className="w-12 h-12 text-secondary fill-secondary" />
-                            <InfinityIcon className="w-12 h-12 text-accent" />
-                            <Heart className="w-12 h-12 text-secondary fill-secondary" />
+                        {/* Petal Burst Effect (Simulated with circles) */}
+                        {[...Array(6)].map((_, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, x: 0, y: 0 }}
+                                animate={{ opacity: [1, 0], x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100 }}
+                                transition={{ duration: 1, delay: 0.1 }}
+                                className="absolute inset-0 w-4 h-4 bg-rose-400 rounded-full blur-[1px]"
+                            />
+                        ))}
+
+                        <div className="bg-white/80 p-6 rounded-full shadow-2xl backdrop-blur-sm border border-rose-100">
+                            <InfinityIcon className="w-16 h-16 text-secondary" strokeWidth={1.5} />
                         </div>
                     </motion.div>
 
-                    <div className="space-y-4 max-w-xs">
-                        <p className="font-heading text-2xl text-secondary">Heart Captured 💘</p>
-                        <p className="font-body text-gray-700">
-                            "That's when I realized... my heart was already yours."
+                    <div className="space-y-4 max-w-sm">
+                        <p className="font-heading text-3xl text-secondary">Captured.</p>
+                        <p className="font-body text-gray-700 leading-relaxed">
+                            "That's when I realized... <br />
+                            <span className="font-semibold text-secondary">my heart was already yours.</span>"
                         </p>
-                        <p className="text-sm font-bold text-accent">+1 Love Point</p>
                     </div>
 
                     <motion.button
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 2 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 2.5 }}
                         onClick={onComplete}
-                        className="px-8 py-2 bg-secondary text-white rounded-full hover:bg-opacity-90 shadow-lg mt-4"
+                        className="px-8 py-3 bg-secondary text-white rounded-full hover:bg-[#8B3A44] transition-colors shadow-lg font-heading tracking-wide"
                     >
-                        Continue
+                        Forever
                     </motion.button>
                 </motion.div>
             )}

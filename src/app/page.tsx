@@ -54,7 +54,7 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-[80vh] flex flex-col items-center justify-center relative">
+    <div className="w-full max-w-xl mx-auto min-h-[80vh] flex flex-col items-center justify-center relative">
       <AnimatePresence mode="wait">
         {renderScene()}
       </AnimatePresence>

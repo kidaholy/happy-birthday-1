@@ -12,13 +12,14 @@ export default function SceneFinal({ onComplete }: SceneFinalProps) {
     const [step, setStep] = useState<'counting' | 'gift' | 'message'>('counting');
     const [count, setCount] = useState(0);
 
+    // Fix: Using useEffect for safe timing
     useEffect(() => {
         if (step === 'counting') {
             if (count < 6) {
-                const timer = setTimeout(() => setCount(c => c + 1), 500);
+                const timer = setTimeout(() => setCount(c => c + 1), 600); // Slower, more dramatic count
                 return () => clearTimeout(timer);
             } else {
-                const timer = setTimeout(() => setStep('gift'), 1000);
+                const timer = setTimeout(() => setStep('gift'), 1500);
                 return () => clearTimeout(timer);
             }
         }
@@ -28,66 +29,80 @@ export default function SceneFinal({ onComplete }: SceneFinalProps) {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center min-h-[70vh] text-center space-y-8 max-w-lg mx-auto p-4"
+            className="flex flex-col items-center justify-center min-h-[70vh] text-center space-y-8 max-w-lg mx-auto p-4 relative z-10"
         >
             {step === 'counting' && (
-                <div className="space-y-4">
-                    <p className="text-xl font-body text-gray-600">Today isn't just your birthday...</p>
+                <div className="space-y-6">
+                    <p className="text-2xl font-romantic text-gray-500">Today marks...</p>
                     <motion.div
                         key={count}
-                        initial={{ scale: 0.5, opacity: 0 }}
-                        animate={{ scale: 1.5, opacity: 1 }}
-                        className="font-heading text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent"
+                        initial={{ scale: 0.8, opacity: 0, filter: 'blur(10px)' }}
+                        animate={{ scale: 1.5, opacity: 1, filter: 'blur(0px)' }}
+                        className="font-heading text-[10rem] leading-none font-bold text-transparent bg-clip-text bg-gradient-to-br from-secondary via-rose-500 to-accent drop-shadow-md"
                     >
                         {count}
                     </motion.div>
-                    <p className="text-lg font-heading text-secondary">Years Together</p>
+                    <p className="text-xl font-heading text-secondary tracking-widest uppercase border-t border-secondary/20 pt-4 mt-4">
+                        Years of Us
+                    </p>
                 </div>
             )}
 
             {step === 'gift' && (
                 <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="cursor-pointer flex flex-col items-center"
+                    initial={{ scale: 0, rotate: 180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                    className="cursor-pointer flex flex-col items-center group"
                     onClick={() => setStep('message')}
                 >
                     <motion.div
-                        animate={{
-                            rotate: [0, -5, 5, -5, 0],
-                            scale: [1, 1.05, 1]
-                        }}
-                        transition={{ repeat: Infinity, duration: 2 }}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        className="relative"
                     >
-                        <Gift className="w-32 h-32 text-secondary fill-rose-100" strokeWidth={1} />
+                        <div className="absolute inset-0 bg-accent/20 blur-3xl rounded-full animate-pulse-soft" />
+                        <Gift className="w-40 h-40 text-secondary fill-rose-50 drop-shadow-2xl" strokeWidth={0.5} />
                     </motion.div>
-                    <p className="mt-4 font-body animate-pulse">Tap to open 💌</p>
+                    <p className="mt-8 font-body text-gray-400 group-hover:text-secondary transition-colors tracking-widest uppercase text-sm">
+                        A wish for you
+                    </p>
                 </motion.div>
             )}
 
             {step === 'message' && (
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-rose-100"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="bg-white/90 backdrop-blur-xl p-10 rounded-3xl shadow-2xl border border-white/50 relative overflow-hidden"
                 >
-                    <h2 className="font-heading text-3xl text-secondary mb-6">Kalye,</h2>
-                    <div className="space-y-4 font-body text-gray-700 leading-relaxed text-left">
-                        <p>I wish you a life full of happiness, peace, and love.</p>
+                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-secondary via-accent to-secondary" />
+
+                    <h2 className="font-romantic text-5xl text-secondary mb-8">Kalye,</h2>
+
+                    <div className="space-y-6 font-body text-gray-600 leading-loose text-center text-lg">
+                        <p>I wish you a life full of <span className="text-secondary font-medium">happiness</span>, peace, and love.</p>
                         <p>I wish for more laughter, more memories, more moments that feel out of this world.</p>
-                        <p className="font-semibold text-lg text-secondary pt-2">And I want that life… with you.</p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 2 }}
+                            className="pt-6 border-t border-gray-100"
+                        >
+                            <p className="font-heading text-2xl text-secondary italic">"And I want that life… with you."</p>
+                        </motion.div>
                     </div>
 
-                    <div className="mt-8 flex justify-center">
+                    <div className="mt-10 flex justify-center">
                         <motion.button
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 3 }}
+                            transition={{ delay: 4 }}
                             onClick={onComplete}
-                            className="px-8 py-3 bg-secondary text-white rounded-full hover:bg-opacity-90 shadow-lg flex items-center gap-2"
+                            className="px-8 py-3 bg-secondary text-white rounded-full hover:bg-[#8B3A44] shadow-lg flex items-center gap-3 transition-transform hover:scale-105"
                         >
                             <Heart className="w-5 h-5 fill-white" />
-                            <span>About Us</span>
+                            <span>This is Our Promise</span>
                         </motion.button>
                     </div>
                 </motion.div>
