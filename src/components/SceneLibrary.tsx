@@ -89,25 +89,25 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
                                 className="text-2xl font-light"
                             >
-                                Six hours.
+                                Saturday at Marryjoy Library.
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5 }}
                                 className="text-2xl font-light"
                             >
-                                No standing.
+                                Hours passed.
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.5 }}
                                 className="text-2xl font-light"
                             >
-                                Just us.
+                                Whispering...
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5 }}
                                 className="text-3xl text-rose-200 font-romantic"
                             >
-                                Like the world stopped existing.
+                                Like we were the only two people in the world.
                             </motion.p>
                         </div>
                     </motion.div>

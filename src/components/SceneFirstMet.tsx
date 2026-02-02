@@ -44,33 +44,47 @@ export default function SceneFirstMet({ onComplete }: SceneFirstMetProps) {
             </div>
 
             {/* Memory Orbs - Slower, organic float */}
-            {memories.map((memory, i) => !memory.collected && (
-                <motion.div
-                    key={memory.id}
-                    style={{ left: memory.x, top: memory.y }}
-                    className="absolute z-20"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{
-                        opacity: 1,
-                        scale: 1,
-                        y: [0, -15, 0],
-                        x: [0, i % 2 === 0 ? 5 : -5, 0]
-                    }}
-                    transition={{
-                        y: { repeat: Infinity, duration: 4 + i, ease: "easeInOut" },
-                        x: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-                        default: { duration: 1 }
-                    }}
-                >
-                    <button
-                        onClick={() => handleCollect(memory.id)}
-                        className="w-16 h-16 rounded-full bg-amber-200/20 backdrop-blur-sm border border-amber-300/30 flex items-center justify-center group cursor-pointer hover:bg-amber-200/40 transition-colors"
-                    >
-                        <Sparkles className="w-6 h-6 text-amber-500 opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
-                    </button>
-                    <div className="absolute inset-0 bg-amber-400 blur-xl opacity-20 animate-pulse-soft pointer-events-none" />
-                </motion.div>
-            ))}
+            {/* Memory Orbs - Ordered Sequence */}
+            {memories.map((memory, i) => {
+                // Find the index of the first uncollected memory
+                const firstUncollectedIndex = memories.findIndex(m => !m.collected);
+
+                // Only show if it's the current step
+                if (!memory.collected && i === firstUncollectedIndex) {
+                    return (
+                        <motion.div
+                            key={memory.id}
+                            style={{ left: memory.x, top: memory.y }}
+                            className="absolute z-20"
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                                y: [0, -10, 0],
+                            }}
+                            transition={{
+                                y: { repeat: Infinity, duration: 3, ease: "easeInOut" },
+                                default: { duration: 0.5 }
+                            }}
+                        >
+                            <div className="relative">
+                                {/* Guide Line from previous or center? - Optional, keeping simple for now */}
+                                <button
+                                    onClick={() => handleCollect(memory.id)}
+                                    className="w-16 h-16 rounded-full bg-amber-200/20 backdrop-blur-sm border border-amber-300/30 flex items-center justify-center group cursor-pointer hover:bg-amber-200/40 transition-colors relative z-10"
+                                >
+                                    <Sparkles className="w-8 h-8 text-amber-500 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 animate-pulse-soft" />
+                                </button>
+                                {/* Glowing Aura */}
+                                <div className="absolute inset-0 bg-amber-400 blur-2xl opacity-40 animate-pulse-soft pointer-events-none" />
+                                {/* Ping Effect to draw attention */}
+                                <div className="absolute inset-0 rounded-full border border-amber-400 opacity-0 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                            </div>
+                        </motion.div>
+                    );
+                }
+                return null;
+            })}
 
             {/* Message Display - Elegant */}
             <AnimatePresence mode="wait">
