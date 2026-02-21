@@ -123,3 +123,19 @@ a {
 .animate-heart-organic {
   animation: heart-beat-organic 2s ease-in-out infinite;
 }
+
+/* Premium Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.text-glow {
+  text-shadow: 0 0 15px rgba(255, 209, 220, 0.8);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}

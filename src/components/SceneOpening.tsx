@@ -13,7 +13,7 @@ export default function SceneOpening({ onComplete }: SceneOpeningProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex flex-col items-center justify-center space-y-10 text-center min-h-[60vh] z-10"
+            className="flex flex-col items-center justify-center space-y-10 text-center min-h-[75vh] z-10 py-12"
         >
             <motion.div
                 className="relative cursor-pointer"
@@ -31,13 +31,14 @@ export default function SceneOpening({ onComplete }: SceneOpeningProps) {
                 className="space-y-6"
             >
                 <h1 className="text-5xl md:text-7xl font-romantic text-secondary drop-shadow-sm">
-                    Happy Birthday, Kalye
+                    መልካም ልደት፣ የኔ ውድ ቃልዬ
                 </h1>
 
-                <div className="h-px w-24 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto opacity-50" />
+                <div className="h-px w-32 bg-gradient-to-r from-transparent via-secondary to-transparent mx-auto opacity-30" />
 
-                <p className="text-xl font-body text-gray-600 font-light tracking-wide">
-                    And happy <span className="font-semibold text-secondary">6-year anniversary</span> to us.
+                <p className="text-xl font-body text-gray-600 font-light tracking-wide italic">
+                    "ከስድስት ዓመታት በፊት የጀመረው፣ ዛሬም በውበቱ የቀጠለው <br />
+                    ልዩ <span className="font-semibold text-secondary">የፍቅር እና የጓደኝነት ታሪካችን።</span>"
                 </p>
             </motion.div>
 
@@ -48,9 +49,9 @@ export default function SceneOpening({ onComplete }: SceneOpeningProps) {
                 onClick={onComplete}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="mt-16 text-sm uppercase tracking-[0.3em] text-gray-400 hover:text-secondary transition-colors border-b border-transparent hover:border-secondary pb-1"
+                className="mt-16 text-sm uppercase tracking-[0.3em] text-secondary/60 hover:text-secondary transition-all border-b border-transparent hover:border-secondary pb-1"
             >
-                Start Our Story
+                የኛን ትዝታዎች እናንብብ
             </motion.button>
         </motion.div>
     );

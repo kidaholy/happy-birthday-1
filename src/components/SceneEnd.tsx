@@ -8,7 +8,7 @@ export default function SceneEnd({ onRestart }: { onRestart: () => void }) {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center min-h-[60vh] space-y-8 text-center"
+            className="flex flex-col items-center justify-center min-h-[75vh] space-y-8 text-center py-12"
         >
             <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
@@ -21,10 +21,11 @@ export default function SceneEnd({ onRestart }: { onRestart: () => void }) {
                 </div>
             </motion.div>
 
-            <h2 className="font-romantic text-5xl text-secondary">Forever & Always</h2>
+            <h2 className="font-romantic text-5xl text-secondary">ለዘላለም፣ ከአንቺ ጋር...</h2>
 
-            <p className="font-body text-gray-600 max-w-xs">
-                Our story doesn't end here. It's just getting started.
+            <p className="font-body text-gray-600 max-w-xs italic leading-relaxed">
+                "የኛ ታሪክ እዚህ አያበቃም... <br />
+                የሚቀጥሉትን ምዕራፎች አብረን እንጽፋቸዋለን።"
             </p>
 
             <motion.button
@@ -34,7 +35,7 @@ export default function SceneEnd({ onRestart }: { onRestart: () => void }) {
                 className="mt-8 px-8 py-3 border-2 border-secondary text-secondary rounded-full font-heading flex items-center gap-2 hover:bg-secondary hover:text-white transition-colors"
             >
                 <RefreshCw className="w-5 h-5" />
-                <span>Continue Our Story</span>
+                <span>ታሪካችንን ቀጥዪው</span>
             </motion.button>
         </motion.div>
     );

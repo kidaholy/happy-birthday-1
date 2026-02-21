@@ -22,7 +22,7 @@ export default function SceneHeartMoment({ onComplete }: SceneHeartMomentProps) 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full h-[60vh] flex flex-col items-center justify-center relative bg-gradient-to-br from-rose-50 to-pink-100 rounded-2xl shadow-inner overflow-hidden p-8"
+            className="w-full min-h-[80vh] flex flex-col items-center justify-center relative bg-gradient-to-br from-rose-50 to-pink-100 rounded-2xl shadow-inner overflow-visible p-8 py-12"
         >
             {!isCaptured ? (
                 <>
@@ -32,7 +32,7 @@ export default function SceneHeartMoment({ onComplete }: SceneHeartMomentProps) 
                         transition={{ delay: 0.5, duration: 1.5 }}
                         className="absolute top-12 text-center"
                     >
-                        <p className="font-heading text-2xl text-secondary/70 italic">"Something changed..."</p>
+                        <p className="font-heading text-2xl text-secondary/70 italic">"በአንድ ቅጽበት፣ ዓለሜ ተለወጠ..."</p>
                     </motion.div>
 
                     {/* Target Heart - With Pulse Aura */}
@@ -65,7 +65,7 @@ export default function SceneHeartMoment({ onComplete }: SceneHeartMomentProps) 
                             </motion.div>
 
                             <p className="absolute -bottom-8 left-0 w-max text-xs text-secondary/40 font-body opacity-0 group-hover:opacity-100 transition-opacity">
-                                Bring it to her heart
+                                ወደ ልቤ አምጪው
                             </p>
                         </div>
                     </div>
@@ -74,35 +74,33 @@ export default function SceneHeartMoment({ onComplete }: SceneHeartMomentProps) 
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="flex flex-col items-center text-center space-y-8 z-20"
+                    className="flex flex-col items-center text-center space-y-6 z-20 w-full max-w-md"
                 >
                     <motion.div
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ type: "spring", stiffness: 100, damping: 12 }}
-                        className="relative"
+                        initial={{ scale: 0.8, opacity: 0, rotate: -5 }}
+                        animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        className="relative p-3 bg-white shadow-xl rotate-1 rounded-sm"
                     >
-                        {/* Petal Burst Effect (Simulated with circles) */}
-                        {[...Array(6)].map((_, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, x: 0, y: 0 }}
-                                animate={{ opacity: [1, 0], x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100 }}
-                                transition={{ duration: 1, delay: 0.1 }}
-                                className="absolute inset-0 w-4 h-4 bg-rose-400 rounded-full blur-[1px]"
+                        {/* Polaroid Effect */}
+                        <div className="relative w-64 h-64 md:w-80 md:h-80 overflow-hidden bg-gray-100">
+                            {/* Note: Using standard img tag for simplicity in this context, or next/image if configured */}
+                            <img
+                                src="/photo_2021-09-09_18-36-49.jpg"
+                                alt="Our Moment"
+                                className="object-cover w-full h-full"
                             />
-                        ))}
-
-                        <div className="bg-white/80 p-6 rounded-full shadow-2xl backdrop-blur-sm border border-rose-100">
-                            <InfinityIcon className="w-16 h-16 text-secondary" strokeWidth={1.5} />
+                        </div>
+                        <div className="pt-6 pb-2 text-center font-romantic text-3xl text-secondary/80">
+                            የመጀመሪያው የልብ ምት
                         </div>
                     </motion.div>
 
                     <div className="space-y-4 max-w-sm">
-                        <p className="font-heading text-3xl text-secondary">Captured.</p>
-                        <p className="font-body text-gray-700 leading-relaxed">
-                            "That's when I realized... <br />
-                            <span className="font-semibold text-secondary">my heart was already yours.</span>"
+                        <p className="font-heading text-3xl text-secondary tracking-wide">ልቤ ቆመ...</p>
+                        <p className="font-body text-gray-700 leading-relaxed italic">
+                            "አንቺን ሳውቅሽ ነው በትክክል መኖር የጀመርኩት... <br />
+                            <span className="font-semibold text-secondary">ልቤ ለካ አስቀድሞ ያንቺ ኖሯል።</span>"
                         </p>
                     </div>
 
@@ -113,7 +111,7 @@ export default function SceneHeartMoment({ onComplete }: SceneHeartMomentProps) 
                         onClick={onComplete}
                         className="px-8 py-3 bg-secondary text-white rounded-full hover:bg-[#8B3A44] transition-colors shadow-lg font-heading tracking-wide"
                     >
-                        Forever
+                        ለዘላለም
                     </motion.button>
                 </motion.div>
             )}

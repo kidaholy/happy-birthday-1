@@ -10,9 +10,9 @@ interface SceneFirstMetProps {
 
 export default function SceneFirstMet({ onComplete }: SceneFirstMetProps) {
     const [memories, setMemories] = useState([
-        { id: 1, x: '25%', y: '35%', text: "Six years ago...", collected: false },
-        { id: 2, x: '65%', y: '45%', text: "Two strangers in a holy place...", collected: false },
-        { id: 3, x: '45%', y: '65%', text: "Unaware that forever had just begun.", collected: false }
+        { id: 1, x: '25%', y: '35%', text: "ትዝ ይልሻል ህይውት ብርሃን ነበር የተዋወቅነው", collected: false },
+        { id: 2, x: '65%', y: '45%', text: "ብዙም አንግባባም እረ እንደውም ሰላም ተባብለንም አናውቅም", collected: false },
+        { id: 3, x: '45%', y: '65%', text: "ነገር ግን ከ 6 አመት በፊት ታሪክ ተጀመረ።", collected: false }
     ]);
     const [activeMessage, setActiveMessage] = useState<string | null>(null);
 
@@ -31,7 +31,7 @@ export default function SceneFirstMet({ onComplete }: SceneFirstMetProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full h-[65vh] relative bg-[#FFF8F0] rounded-2xl shadow-2xl overflow-hidden border border-white/60 box-content"
+            className="w-full min-h-[75vh] relative bg-[#FFF8F0] rounded-2xl shadow-2xl overflow-visible border border-white/60 box-content"
         >
             {/* Background Ambience - God Rays */}
             <div className="absolute inset-0 god-rays opacity-40 mix-blend-soft-light" />
@@ -40,7 +40,7 @@ export default function SceneFirstMet({ onComplete }: SceneFirstMetProps) {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-amber-100/30 pointer-events-none" />
 
             <div className="absolute top-8 left-0 right-0 text-center z-10 opacity-70">
-                <p className="font-romantic text-3xl text-amber-900/40">Where it began...</p>
+                <p className="font-romantic text-3xl text-amber-900/40">የጀመረበት ቦታ...</p>
             </div>
 
             {/* Memory Orbs - Slower, organic float */}
@@ -117,8 +117,8 @@ export default function SceneFirstMet({ onComplete }: SceneFirstMetProps) {
                             onClick={onComplete}
                             className="group flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity"
                         >
-                            <span className="text-xs uppercase tracking-widest text-amber-900">The feeling grew</span>
-                            <ArrowRight className="w-5 h-5 text-amber-900 group-hover:translate-x-1 transition-transform" />
+                            <span className="text-xs uppercase tracking-widest text-amber-900/60 font-body">ያ ቀን... ለዘላለም ተቀየረ</span>
+                            <ArrowRight className="w-5 h-5 text-amber-900/60 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </motion.div>
                 )}

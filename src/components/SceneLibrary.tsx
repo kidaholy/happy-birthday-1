@@ -31,7 +31,7 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={`w-full h-[60vh] flex flex-col items-center justify-center relative rounded-2xl shadow-xl overflow-hidden transition-colors duration-1000 ${isFrozen ? 'bg-zinc-900 border-zinc-800' : 'bg-[#F5F1E6] border-[#E8E1D1]'}`}
+            className={`w-full min-h-[75vh] flex flex-col items-center justify-center relative rounded-2xl shadow-xl overflow-visible transition-colors duration-1000 ${isFrozen ? 'bg-zinc-900 border-zinc-800' : 'bg-[#F5F1E6] border-[#E8E1D1]'}`}
         >
             {/* Background Texture */}
             <div className={`absolute inset-0 opacity-10 transition-opacity duration-1000 ${isFrozen ? 'opacity-5' : 'opacity-10'}`}
@@ -44,7 +44,7 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
                     animate={{ y: 0, opacity: 1 }}
                     className="absolute top-10 z-20"
                 >
-                    <p className="text-amber-900/60 font-heading text-lg tracking-widest uppercase">Time is racing...</p>
+                    <p className="text-amber-900/60 font-heading text-lg tracking-widest uppercase">ጊዜ ሲቆም...</p>
                 </motion.div>
             )}
 
@@ -64,7 +64,7 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
 
                 {!isFrozen && (
                     <div className="absolute -bottom-10 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity text-sm text-amber-900/50">
-                        Tap only when you want it to stop
+                        እንዲቆም ሲፈልጉ ብቻ ይንኩ
                     </div>
                 )}
             </div>
@@ -87,27 +87,27 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
                         <div className="font-heading text-white space-y-4">
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-                                className="text-2xl font-light"
+                                className="text-2xl font-light italic"
                             >
-                                Saturday at Marryjoy Library.
+                                የሜሪጆይ ላይብረሪ ቅዳሜዎች... ያ የማያልቅ ወጋችን።
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5 }}
                                 className="text-2xl font-light"
                             >
-                                Hours passed.
+                                በመጽሐፍት መካከል፣ በሹክሹክታ...
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.5 }}
                                 className="text-2xl font-light"
                             >
-                                Whispering...
+                                ሰዓታት እንደ ሰከንድ ነጎዱ።
                             </motion.p>
                             <motion.p
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5 }}
-                                className="text-3xl text-rose-200 font-romantic"
+                                className="text-3xl text-rose-200 font-romantic leading-relaxed"
                             >
-                                Like we were the only two people in the world.
+                                በዓለም ላይ ለእኔ እና ላንቺ ብቻ የተፈጠረች <br /> ስፍራ ትመስል ነበር።
                             </motion.p>
                         </div>
                     </motion.div>
@@ -119,7 +119,7 @@ export default function SceneLibrary({ onComplete }: SceneLibraryProps) {
                         onClick={onComplete}
                         className="mt-12 px-6 py-2 border border-white/30 text-white/80 rounded-full hover:bg-white/10 transition-colors text-sm uppercase tracking-widest"
                     >
-                        Resume Time
+                        እስኪ እንቀጥል
                     </motion.button>
                 </motion.div>
             )}
